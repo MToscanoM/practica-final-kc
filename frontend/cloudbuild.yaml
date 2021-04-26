@@ -1,5 +1,0 @@
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/chromatic-being-297221/acme-docker-repo/acme-frontend-image:latest', '.' ]
-images:
-- 'us-central1-docker.pkg.dev/chromatic-being-297221/acme-docker-repo/acme-frontend-image:latest'
