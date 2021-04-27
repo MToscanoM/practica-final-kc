@@ -1,6 +1,14 @@
 steps:
-- name: 'eu.gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'eu.gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:latest', 'frontend/.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:$SHORT_SHA', 'frontend/.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:$SHORT_SHA' ]
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['set', 'image', 'deployment/my-deployment', 'my-container=gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:$SHORT_SHA']
 
-- name: 'eu.gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'eu.gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:latest', 'backend/.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:$SHORT_SHA', 'backend/.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:$SHORT_SHA' ]
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['set', 'image', 'deployment/my-deployment', 'my-container=gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:$SHORT_SHA']
