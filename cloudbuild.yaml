@@ -1,6 +1,6 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:latest', 'frontend/.' ]
+- name: 'eu.gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'eu.gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:latest', 'frontend/.' ]
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:latest', 'backend/.' ]
+- name: 'eu.gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'eu.gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:latest', 'backend/.' ]
