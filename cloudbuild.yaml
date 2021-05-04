@@ -1,10 +1,10 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:$SHORT_SHA', 'frontend/.' ]
+  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-frontend-image:$SHORT_SHA', 'frontend/.' ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-frontend-image:$SHORT_SHA' ]
+  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-frontend-image:$SHORT_SHA' ]
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:$SHORT_SHA', 'backend/.' ]
+  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-backend-image:$SHORT_SHA', 'backend/.' ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/chromatic-being-297221/acme-docker-repo/acme-backend-image:$SHORT_SHA' ]
+  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-backend-image:$SHORT_SHA' ]
