@@ -1,10 +1,35 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-frontend-image:$SHORT_SHA', 'frontend/.' ]
+  id: Build
+  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-frontend:$SHORT_SHA', 'frontend/.' ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-frontend-image:$SHORT_SHA' ]
+  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-frontend:$SHORT_SHA' ]
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-backend-image:$SHORT_SHA', 'backend/.' ]
+  id: Build
+  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-backend:$SHORT_SHA', 'backend/.' ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-backend-image:$SHORT_SHA' ]
+  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-backend:$SHORT_SHA' ]
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate frontend manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/VERSION/${SHORT_SHA}/g" frontend/k8s/deployment.yml.tpl > frontend/k8s/kubernetes.yaml
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate backend manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/VERSION/${SHORT_SHA}/g" backend/k8s/deployment.yml.tpl > backend/k8s/kubernetes.yaml
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: Deploy
+  args: [ 'apply', '-f', 'frontend/k8s/kubernetes.yaml backend/k8s/kubernetes.yaml' ]
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=eu-west3-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'

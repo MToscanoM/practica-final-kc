@@ -4,7 +4,7 @@
    name: frontend 
    labels:
      app: frontend
-     version: ${VERSION}
+     version: VERSION
  spec:
    selector:
      matchLabels:
@@ -14,10 +14,24 @@
      metadata:
        labels:
          app: frontend
-         version: ${VERSION}
+         version: VERSION
      spec:
        containers:
        - name: frontend
-         image: ${DOCKER_REGISTRY}/frontend:${VERSION}
+         image: gcr.io/marianotests/acme-docker-repo/acme-frontend:VERSION
          ports:
          - containerPort: 5000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: frontend
