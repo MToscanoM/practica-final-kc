@@ -1,0 +1,46 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: backend 
+   labels:
+     app: backend
+     version: ${VERSION}
+   annotations:
+     prometheus.io/scrape: "true"
+     prometheus.io/path: "/metrics"
+     prometheus.io/port: "8000"
+ spec:
+   selector:
+     matchLabels:
+       app: backend
+   replicas: 1
+   template:
+     metadata:
+       labels:
+         app: backend
+         version: ${VERSION}
+     spec:
+       containers:
+       - name: backend
+         image: gcr.io/marianotests/acme-docker-repo/acme-backend:${SHORT_SHA}
+         ports:
+         - containerPort: 5000
+         resources:
+           requests:
+             cpu: 100m
+             memory: 128Mi
+           limits:
+             cpu: 200m
+             memory: 256Mi 
+         livenessProbe:
+           httpGet:
+             path: /health/live
+             port: 5000
+           initialDelaySeconds: 5
+           periodSeconds: 20
+         readinessProbe:
+           httpGet:
+             path: /health/ready
+             port: 5000
+           initialDelaySeconds: 7
+           periodSeconds: 20
