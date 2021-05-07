@@ -13,7 +13,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
-  args: [ 'apply', '-f', 'frontend/k8s/kubernetes.yaml backend/k8s/kubernetes.yaml' ]
+  args: [ 'apply', '-f', 'frontend/k8s/. backend/k8s/. data/.' ]
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=eu-west3-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
