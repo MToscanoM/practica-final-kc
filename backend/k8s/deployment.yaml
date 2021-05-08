@@ -4,7 +4,7 @@
    name: backend 
    labels:
      app: backend
-     version: ${VERSION}
+     version: latest
    annotations:
      prometheus.io/scrape: "true"
      prometheus.io/path: "/metrics"
@@ -18,11 +18,11 @@
      metadata:
        labels:
          app: backend
-         version: ${VERSION}
+         version: latest
      spec:
        containers:
        - name: backend
-         image: gcr.io/marianotests/acme-docker-repo/acme-backend:${SHORT_SHA}
+         image: gcr.io/marianotests/acme-docker-repo/acme-backend:latest
          ports:
          - containerPort: 5000
          resources:

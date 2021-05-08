@@ -1,20 +1,19 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   id: Build frontend
-  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-frontend:$SHORT_SHA', 'frontend/.' ]
+  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-frontend:latest', 'frontend/.' ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-frontend:$SHORT_SHA' ]
+  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-frontend:latest' ]
 
 - name: 'gcr.io/cloud-builders/docker'
   id: Build backend
-  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-backend:$SHORT_SHA', 'backend/.' ]
+  args: [ 'build', '-t', 'gcr.io/marianotests/acme-docker-repo/acme-backend:latest', 'backend/.' ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-backend:$SHORT_SHA' ]
+  args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-backend:latest' ]
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy
   args: [ 'apply', '-f', 'frontend/k8s/. backend/k8s/. data/.' ]
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=eu-west3-a'
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-west3-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-  - 'VERSION=$SHORT_SHA'
