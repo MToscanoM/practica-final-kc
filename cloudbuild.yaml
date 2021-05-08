@@ -12,8 +12,15 @@ steps:
   args: [ 'push', 'gcr.io/marianotests/acme-docker-repo/acme-backend:latest' ]
 
 - name: 'gcr.io/cloud-builders/kubectl'
-  id: Deploy
-  args: [ 'apply', '-f', 'frontend/k8s/. backend/k8s/. data/.' ]
+  id: Deploy frontend manifests
+  args: [ 'apply', '-f', 'frontend/k8s/.' ]
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-west3-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: Deploy backend manifests
+  args: [ 'apply', '-f', 'backend/k8s/.' ]
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=europe-west3-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
