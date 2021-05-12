@@ -25,15 +25,3 @@
          image: gcr.io/marianotests/acme-docker-repo/acme-frontend:latest
          ports:
          - containerPort: 8080
-         livenessProbe:
-           httpGet:
-             path: /health/live
-             port: 8080
-           initialDelaySeconds: 5
-           periodSeconds: 20
-         readinessProbe:
-           httpGet:
-             path: /health/ready
-             port: 8080
-           initialDelaySeconds: 7
-           periodSeconds: 20

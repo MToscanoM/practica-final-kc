@@ -5,9 +5,9 @@
    labels:
      app: frontend
  spec:
-   type: NodePort
+   type: ClusterIP
    ports:
    - port: 8080
-     targetPort: 80
+     targetPort: 8080
    selector:
      app: frontend

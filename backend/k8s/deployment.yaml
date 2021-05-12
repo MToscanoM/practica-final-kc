@@ -31,15 +31,4 @@
                 key: password
          ports:
          - containerPort: 5000
-         livenessProbe:
-           httpGet:
-             path: /health/live
-             port: 5000
-           initialDelaySeconds: 5
-           periodSeconds: 20
-         readinessProbe:
-           httpGet:
-             path: /health/ready
-             port: 5000
-           initialDelaySeconds: 7
-           periodSeconds: 20
+         
