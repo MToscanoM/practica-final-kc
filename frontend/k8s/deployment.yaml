@@ -24,4 +24,4 @@
        - name: frontend
          image: gcr.io/marianotests/acme-docker-repo/acme-frontend:latest
          ports:
-         - containerPort: 8080
+         - containerPort: 3000
