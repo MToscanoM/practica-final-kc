@@ -1,28 +1,26 @@
  apiVersion: apps/v1
  kind: Deployment
  metadata:
-   name: web
+   name: frontend
    labels:
-     app: web
-     version: latest
-   annotations:
-     prometheus.io/scrape: "true"
-     prometheus.io/path: "/metrics"
-     prometheus.io/port: "8000"
+     app: frontend
  spec:
+   replicas: 1
    selector:
      matchLabels:
-       app: web
-   replicas: 1
+       app: frontend
+   strategy: {}
    template:
      metadata:
        labels:
-         app: web
-         version: latest
+         network-frontend: "true"
+         app: frontend
      spec:
        containers:
        - name: frontend
          image: gcr.io/marianotests/acme-docker-repo/acme-frontend:latest
-         resources: {}
          ports:
          - containerPort: 80
+         resources: {}
+       restartPolicy: Always
+       

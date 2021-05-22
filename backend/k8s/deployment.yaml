@@ -1,24 +1,21 @@
  apiVersion: apps/v1
  kind: Deployment
  metadata:
-   name: backend 
+   name: backend
    labels:
      app: backend
-     version: latest
-   annotations:
-     prometheus.io/scrape: "true"
-     prometheus.io/path: "/metrics"
-     prometheus.io/port: "8000"
  spec:
+   replicas: 1
    selector:
      matchLabels:
        app: backend
-   replicas: 1
+   strategy: {}
    template:
      metadata:
        labels:
          app: backend
-         version: latest
+         network-backend: "true"
+         network-frontend: "true"
      spec:
        containers:
        - name: backend
@@ -29,6 +26,13 @@
               secretKeyRef:
                 name: mysql-pass
                 key: password
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: mysql-pass
+                key: secret
          ports:
          - containerPort: 5000
+         resources: {}
+       restartPolicy: Always
          

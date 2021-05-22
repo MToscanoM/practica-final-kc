@@ -2,21 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
-  app: db
+  labels:
+    app: db
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      name: db
+      app: db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        name: db
+        app: db
+        network-backend: "true"
     spec:
       containers:
-      - name: db
-        image: mysql:5.6
+      - name: mysql
+        image: mysql:5.7
+        args:
+        - "--ignore-db-dir=lost+found"
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -39,6 +44,7 @@ spec:
           readOnly: true
         - name: mysql-data-storage
           mountPath: /var/lib/mysql
+      restartPolicy: Always
       volumes:
         - name: mysql-initdb
           configMap:

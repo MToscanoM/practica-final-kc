@@ -18,10 +18,10 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: cluster-1    # TODO: update to cluster name
+  GKE_CLUSTER: acme-cluster    # TODO: update to cluster name
   GKE_ZONE: europe-west3-a   # TODO: update to cluster zone
   DEPLOYMENT_NAME: acme-demo # TODO: update to deployment name
-  IMAGE: static-site
+  IMAGE: frontend
 
 jobs:
   setup-build-publish-deploy:
