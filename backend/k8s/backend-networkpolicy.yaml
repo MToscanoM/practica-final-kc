@@ -3,11 +3,20 @@ kind: NetworkPolicy
 metadata:
   name: network-backend
 spec:
+  podSelector:
+    matchLabels:
+      network-backend: "true"
+  policyTypes:
+  - Ingress
+  - Egress
   ingress:
   - from:
     - podSelector:
         matchLabels:
           network-backend: "true"
-  podSelector:
-    matchLabels:
-      network-backend: "true"
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            network-backend: "true"
+            
