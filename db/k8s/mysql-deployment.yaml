@@ -3,18 +3,20 @@ kind: Deployment
 metadata:
   name: db
   labels:
-    app: db
+    name: db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: db
+      app: acme
+      tier: db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: db
+        app: acme
+        tier: db
         network-backend: "true"
     spec:
       containers:
@@ -34,7 +36,8 @@ spec:
               name: mysql-pass
               key: secret
         ports:
-        - containerPort: 3306
+          - containerPort: 3306
+            name: db
         resources:
           requests:
             memory: 128Mi
@@ -51,10 +54,10 @@ spec:
           mountPath: /var/lib/mysql
       restartPolicy: Always
       volumes:
-        - name: mysql-initdb
-          configMap:
-            name: mysql-initdb-config
-        - name: mysql-data-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
+      - name: mysql-initdb
+        configMap:
+          name: mysql-initdb-config
+      - name: mysql-data-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
             
