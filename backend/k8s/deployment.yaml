@@ -7,13 +7,13 @@ spec:
   selector:
     matchLabels:
       app: acme
-      tier: backend
+      tier: api
   strategy: {}
   template:
     metadata:
       labels:
         app: acme
-        tier: backend
+        tier: api
         network-backend: "true"
         network-frontend: "true"
     spec:
@@ -41,6 +41,7 @@ spec:
                 key: secret
           ports:
             - containerPort: 5000
+              name: api
           resources: {}
-      restartPolicy: Always
+      
         

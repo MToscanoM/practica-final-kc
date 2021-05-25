@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: db
   labels:
-    name: db
+    app: acme
 spec:
   replicas: 1
   selector:
@@ -52,7 +52,6 @@ spec:
           readOnly: true
         - name: mysql-data-storage
           mountPath: /var/lib/mysql
-      restartPolicy: Always
       volumes:
       - name: mysql-initdb
         configMap:

@@ -2,30 +2,33 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  labels:
+    app: acme
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: acme
-      tier: frontend
-  strategy: {}
+      tier: web
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: acme
-        tier: frontend
+        tier: web
         network-frontend: "true"
     spec:
       containers:
       - name: frontend
         image: gcr.io/marianotests/acme-docker-repo/acme-frontend:latest
         env:
-        - name: NODE_ENV
-          value: production
-        - name: BACKEND_API
-          value: "backend:5000"
+          - name: NODE_ENV
+            value: production
+          - name: BACKEND_API
+            value: "backend:5000"
         ports:
         - containerPort: 80
+          name: web
         resources: {}
-      restartPolicy: Always
-       
+
