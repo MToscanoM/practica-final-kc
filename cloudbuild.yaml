@@ -15,12 +15,12 @@ steps:
   id: Deploy frontend manifests
   args: [ 'apply', '-f', 'frontend/k8s/.' ]
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=europe-west3-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-d'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=acme-cluster'
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: Deploy backend manifests
   args: [ 'apply', '-f', 'backend/k8s/.' ]
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-a'
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-d'
   - 'CLOUDSDK_CONTAINER_CLUSTER=acme-cluster'
