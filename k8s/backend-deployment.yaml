@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gcr.io/$PROJECT_ID/acme-containers/acme-backend:$SHORT_SHA
+          image: gcr.io/marianotests/acme-containers/acme-backend:latest
           env:
             - name: MYSQL_DATABASE_USER
               value: root
