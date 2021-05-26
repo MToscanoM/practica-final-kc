@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: gcr.io/marianotests/acme-docker-repo/acme-frontend:latest
+        image: gcr.io/marianotests/github.com/mtoscanom/acme-frontend:latest
         #env:
         #  - name: NODE_ENV
         #    value: production

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gcr.io/marianotests/acme-docker-repo/acme-backend:latest
+          image: gcr.io/marianotests/github.com/mtoscanom/acme-backend:latest
           env:
             - name: MYSQL_DATABASE_USER
               value: root
