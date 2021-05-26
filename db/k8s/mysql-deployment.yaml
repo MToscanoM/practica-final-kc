@@ -3,41 +3,37 @@ kind: Deployment
 metadata:
   name: db
   labels:
-    app: acme
+    name: db
+  namespace: acme-shop
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: acme
-      tier: db
-  strategy:
-    type: Recreate
+      name: db
   template:
     metadata:
       labels:
-        app: acme
-        tier: db
-        network-backend: "true"
+        name: db
     spec:
       containers:
-      - name: mysql
+      - name: db
         image: mysql:5.7
         args:
         - "--ignore-db-dir=lost+found"
         env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: secret
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-pass
+                key: password
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: mysql-pass
+                key: secret
         ports:
-          - containerPort: 3306
-            name: db
+          - name: db
+            containerPort: 3306   
         resources:
           requests:
             memory: 128Mi

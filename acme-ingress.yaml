@@ -4,6 +4,7 @@ metadata:
   name: acme-ingress
   labels:
     name: acme-ingress
+  namespace: acme-shop
 spec:
   rules:
   - host: practica.keepcoding.marianotoscano.com
@@ -13,6 +14,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: web
+            name: frontend
             port:
               number: 80

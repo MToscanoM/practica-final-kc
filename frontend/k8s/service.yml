@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: frontend
   labels:
-    app: acme
+    name: frontend
+  namespace: acme-shop
 spec:
-  selector:
-    app: acme
-    tier: web
   ports:
   - port: 80
-  type: LoadBalancer
-  
+    targetPort: 80
+  selector:
+    name: frontend

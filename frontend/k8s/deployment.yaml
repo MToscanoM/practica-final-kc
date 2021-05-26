@@ -3,21 +3,17 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: acme
+    name: frontend
+  namespace: acme-shop
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: acme
-      tier: web
-  strategy:
-    type: Recreate
+      name: frontend
   template:
     metadata:
       labels:
-        app: acme
-        tier: web
-        network-frontend: "true"
+        name: frontend
     spec:
       containers:
       - name: frontend
@@ -27,8 +23,7 @@ spec:
             value: production
           - name: BACKEND_API
             value: "backend:5000"
+        resources: {}
         ports:
         - containerPort: 80
-          name: web
-        resources: {}
-
+        

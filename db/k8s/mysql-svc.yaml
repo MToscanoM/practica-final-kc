@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: db
   labels:
-    app: acme
+    name: db
+  namespace: acme-shop
 spec:
-  selector:
-    app: acme
-    tier: db
   ports:
-    - port: 3306
-  clusterIP: None
+  - port: 3306
+    targetPort: 3306
+  selector:
+    name: db
