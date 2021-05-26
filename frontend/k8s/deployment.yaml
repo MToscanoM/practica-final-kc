@@ -18,12 +18,12 @@ spec:
       containers:
       - name: frontend
         image: gcr.io/marianotests/acme-docker-repo/acme-frontend:latest
-        env:
-          - name: NODE_ENV
-            value: production
-          - name: BACKEND_API
-            value: "backend:5000"
+        #env:
+        #  - name: NODE_ENV
+        #    value: production
+        #  - name: BACKEND_API
+        #    value: "backend:5000"
         resources: {}
         ports:
-        - containerPort: 80
-        
+          - name: frontend
+            containerPort: 80

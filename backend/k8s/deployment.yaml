@@ -23,10 +23,6 @@ spec:
               value: root
             - name: MYSQL_DATABASE_DB
               value: data
-            - name: MYSQL_DATABASE_HOST
-              value: db
-            - name: MYSQL_DATABASE_PORT
-              value: "3306"
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
