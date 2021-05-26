@@ -14,7 +14,4 @@ Usamos la webapp ACME de la práctica del módulo de CI-CD y la desplegaremos en
 
 2. 
 
-'kubectl apply -f acme-ns.yaml'
-'kubectl apply -f db/k8s'
-'kubectl apply -f backend/k8s'
-'kubectl apply -f acme-ingress.yaml'
+'kubectl apply -f k8s/'
