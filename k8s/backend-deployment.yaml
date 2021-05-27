@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    name: backend
+  namespace: acme-shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: backend
+  template:
+    metadata:
+      labels:
+        name: backend
+    spec:
+      containers:
+        - name: backend
+          image: gcr.io/marianotests/acme-containers/acme-backend:latest
+          env:
+            - name: MYSQL_DATABASE_USER
+              value: root
+            - name: MYSQL_DATABASE_DB
+              value: data
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: password
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: secret
+          ports:
+            - containerPort: 5000
+              name: backend
+          resources: {}
+      
+        

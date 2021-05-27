@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+  init.sql: "CREATE DATABASE IF NOT EXISTS data;\r\nuse data;\r\n\r\nCREATE TABLE
+    users(\r\n  email VARCHAR(100),\r\n  password TEXT,\r\n  PRIMARY KEY (email)\r\n);\r\n\r\nINSERT
+    INTO users VALUES ('coyote@acme.es', '8dbfcfc23f22c58c1b200821f89fc103');\r\nCOMMIT;\r\n\r\nCREATE
+    TABLE items(\r\n  name VARCHAR(30),\r\n  description VARCHAR(200),\r\n  image
+    TEXT,\r\n  PRIMARY KEY (name)\r\n);\r\n\r\nINSERT INTO items VALUES ('yunque',
+    'Yunque estandar de 80kg', 'https://i.pinimg.com/originals/6e/97/35/6e9735420a8b3f23998b4f3aa7150f31.png');\r\nINSERT
+    INTO items VALUES ('cohete', 'Cohete estandar de 100km/h', 'http://americandigest.org/sidelines/CJLAR.jpg');\r\nINSERT
+    INTO items VALUES ('dinamita', 'TNT 100 Megatones', 'http://3.bp.blogspot.com/-1mXk1jSqilQ/VGvOfpdLQuI/AAAAAAAAgic/j9gHkoY_Xao/s1600/coyote_dinamita1.jpg');\r\nCOMMIT;\r\n\r\n\r\nCREATE
+    TABLE orders(\r\n  email VARCHAR(100),\r\n  name VARCHAR(30),\r\n  FOREIGN KEY
+    (email) REFERENCES users(email) ON DELETE CASCADE,\r\n  FOREIGN KEY (name) REFERENCES
+    items(name) ON DELETE CASCADE,\r\n  PRIMARY KEY (email, name)\r\n);\r\n"
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+  namespace: acme-shop

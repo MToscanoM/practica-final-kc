@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    name: frontend
+  namespace: acme-shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: frontend
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: gcr.io/marianotests/acme-containers/acme-frontend:latest
+        #env:
+        #  - name: NODE_ENV
+        #    value: production
+        #  - name: BACKEND_API
+        #    value: "backend:5000"
+        resources: {}
+        ports:
+          - name: frontend
+            containerPort: 80
